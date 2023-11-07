@@ -43,7 +43,7 @@ const Header: React.FC = () => {
   return (
     <>
       <header
-        className={`w-screen pl-12 pr-16 bg-primary-200 flex justify-between items-center
+        className={`w-screen pl-12 pr-12 bg-primary-200 flex justify-between items-center
         max-[400px]:px-6    
       `}
       >
