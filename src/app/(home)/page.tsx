@@ -8,7 +8,7 @@ const Home: React.FC = () => {
     <>
       <Header />
       <main className=" w-screen min-h-screen flex flex-col items-center px-8">
-        <h2 className="font-black text-4xl max-[400px]:text-2xl text-center  mt-12 mb-12">
+        <h2 className="font-black text-3xl max-[400px]:text-2xl text-center  mt-12 mb-12">
           Encontre o seu próximo evento
           <br /> e se divirta
         </h2>

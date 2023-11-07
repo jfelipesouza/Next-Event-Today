@@ -5,8 +5,8 @@
   "lang": "pt-Br",
   "name": "Event Today",
   "short_name": "Event Today",
-  "description": "My app",
-  "theme_color": "#8936FF",
+  "description": "Aplicativo de Eventos esportivos",
+  "theme_color": "#7242d8",
   "background_color": "#ffffff",
   "icons": [
     {
