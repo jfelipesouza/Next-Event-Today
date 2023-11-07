@@ -57,7 +57,7 @@ const Header: React.FC = () => {
         </div>
 
         <div className="min-[600px]:hidden">
-          <MenuIcon className="text-white" size={32} onClick={handleOpen} />
+          <MenuIcon className="text-white" size={36} onClick={handleOpen} />
         </div>
       </header>
       <div
