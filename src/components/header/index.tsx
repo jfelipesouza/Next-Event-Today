@@ -3,7 +3,7 @@
 import { MenuIcon, X } from 'lucide-react'
 import Image from 'next/image'
 import NextLink from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 type LinkProps = {
   href: string
@@ -32,6 +32,14 @@ const Header: React.FC = () => {
     setOpen(prev => !prev)
   }
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflowY = 'hidden'
+    } else {
+      document.body.style.overflowY = 'scroll'
+    }
+  }, [open])
+
   return (
     <>
       <header
@@ -42,34 +50,46 @@ const Header: React.FC = () => {
         <NextLink href={'/'} className="  max-[400px]:w-40 relative w-44 h-24">
           <Image src="/logo.svg" alt="Logo" priority fill />
         </NextLink>
+
         <div className="gap-4 flex max-[600px]:hidden">
           <Link href={'/auth/signin'} name={'SignIn'} />
           <Link href={'/auth/register'} name={'Register'} />
         </div>
+
         <div className="min-[600px]:hidden">
           <MenuIcon className="text-white" size={32} onClick={handleOpen} />
         </div>
-        <div
-          className={`
+      </header>
+      <div
+        className={`
           z-[999] bg-primary-200 absolute left-0 right-0 
           flex items-center justify-center 
           ${
             open ? 'top-[0] duration-300' : 'top-[-50vh] duration-300'
           } h-[50vh] rounded-b-3xl transition-all ease-linear
           
-          flex flex-col gap-8
+          flex flex-col gap-10
           `}
+      >
+        <NextLink
+          className="text-[1.8rem] text-white font-bold"
+          href={'/auth/signin'}
         >
-          <Link href={'/auth/signin'} name={'SignIn'} />
-          <Link href={'/auth/register'} name={'Register'} />
+          SingIn
+        </NextLink>
+        <NextLink
+          className="text-[1.8rem] text-white font-bold"
+          href={'/auth/register'}
+        >
+          Register
+        </NextLink>
 
-          <X
-            className={'text-white absolute top-[2rem] right-[1rem]'}
-            size={30}
-            onClick={handleOpen}
-          />
-        </div>
-      </header>
+        <X
+          className={'text-white absolute top-[2rem] right-[1rem]'}
+          size={36}
+          onClick={handleOpen}
+        />
+      </div>
     </>
   )
 }
