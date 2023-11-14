@@ -2,7 +2,14 @@ import React, { ReactNode } from 'react'
 
 type FormProps = {
   children?: ReactNode
-}
-export const Form: React.FC<FormProps> = ({ children }) => {
-  return <form className={'flex flex-col gap-1 mt-8'}>{children}</form>
+} & React.DetailedHTMLProps<
+  React.FormHTMLAttributes<HTMLFormElement>,
+  HTMLFormElement
+>
+export const Form: React.FC<FormProps> = ({ children, ...rest }) => {
+  return (
+    <form className={'flex flex-col gap-2'} {...rest}>
+      {children}
+    </form>
+  )
 }

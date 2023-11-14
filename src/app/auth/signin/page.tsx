@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { FormCard, Form } from '@/components/forms'
+import { FormCard } from '@/components/forms'
 import Header from '@/components/header'
 
 const SignIn: React.FC = () => {
@@ -16,7 +16,7 @@ const SignIn: React.FC = () => {
             link={'register'}
             linkText={'clique aqui!'}
           >
-            <Form></Form>
+            <h1>adsnklas</h1>
           </FormCard>
         </div>
         <div className="w-[40vw] min-h-[90vh] relative max-[800px]:hidden  ">
