@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 import { Form, FormCard } from '@/components/forms'
 import Header from '@/components/header'
+import { Toast } from '@/components/toast'
 
 const OrganizerRegister: React.FC = () => {
   return (
@@ -28,6 +29,7 @@ const OrganizerRegister: React.FC = () => {
           />
         </div>
       </main>
+      <Toast />
     </>
   )
 }

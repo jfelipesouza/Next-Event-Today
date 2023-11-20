@@ -45,6 +45,7 @@ const Header: React.FC = () => {
       <header
         className={`w-screen pl-12 pr-12 bg-primary-200 flex justify-between items-center
         max-[400px]:px-6    
+        mb-4
       `}
       >
         <NextLink href={'/'} className="  max-[400px]:w-40 relative w-44 h-24">

@@ -1,10 +1,13 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import axios from 'axios'
 
 import { FormButton, FormCard, InputForm, Form } from '../../forms'
+import { toast } from 'react-toastify'
 
 const registerFormSchema = z
   .object({
@@ -32,18 +35,31 @@ const registerFormSchema = z
   })
 
 type FormDataType = z.infer<typeof registerFormSchema>
+const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 export const RegisterCard = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm<FormDataType>({
     resolver: zodResolver(registerFormSchema)
   })
+  const [disabled, setDisabled] = useState(false)
 
-  const createUser = async (data: any) => {
-    console.log(data)
+  const handleCreateUser = async (data: FormDataType) => {
+    const body = { email: data.email, password: data.password, type: 'client' }
+    try {
+      setDisabled(prev => !prev)
+      const { data } = await axios.post(`${baseUrl}/user/register`, body)
+      toast.success(data.message)
+    } catch (error: any) {
+      toast.error(error.response.data.message)
+    } finally {
+      setDisabled(prev => !prev)
+      reset()
+    }
   }
 
   return (
@@ -52,7 +68,7 @@ export const RegisterCard = () => {
       link={'register/organizer'} */
       title="Crie a sua conta agora"
     >
-      <Form onSubmit={handleSubmit(createUser)}>
+      <Form onSubmit={handleSubmit(handleCreateUser)}>
         <InputForm
           id="email"
           title="E-mail"
@@ -81,7 +97,7 @@ export const RegisterCard = () => {
           {...register('confirm')}
         />
 
-        <FormButton content={'Criar conta'} />
+        <FormButton content={'Criar conta'} disabled={disabled} />
       </Form>
     </FormCard>
   )

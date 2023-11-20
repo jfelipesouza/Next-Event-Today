@@ -1,8 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { FormCard } from '@/components/forms'
 import Header from '@/components/header'
+import { LoginCard } from '@/components/cards/LoginCard'
 
 const SignIn: React.FC = () => {
   return (
@@ -10,14 +10,7 @@ const SignIn: React.FC = () => {
       <Header />
       <main className=" w-screen min-h-[80vh] flex justify-between">
         <div className="w-[60vw] h-[90vh] flex items-center justify-center max-[800px]:w-[100vw]">
-          <FormCard
-            title={'Entre agora e explore'}
-            subtitle={'Novo por aqui? Crie sua conta'}
-            link={'register'}
-            linkText={'clique aqui!'}
-          >
-            <h1>adsnklas</h1>
-          </FormCard>
+          <LoginCard />
         </div>
         <div className="w-[40vw] min-h-[90vh] relative max-[800px]:hidden  ">
           <Image
