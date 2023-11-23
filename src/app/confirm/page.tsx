@@ -7,9 +7,7 @@ import Link from 'next/link'
 import { jwtDecode } from 'jwt-decode'
 
 import Header from '@/components/header'
-import axios from 'axios'
-
-const baseURL = process.env.NEXT_PUBLIC_API_URL
+import { api } from '@/services/api'
 
 const Confirm: React.FC = () => {
   const searchParams = useSearchParams()
@@ -28,23 +26,20 @@ const Confirm: React.FC = () => {
   }, [searchParams])
 
   useEffect(() => {
-    if (status) {
-      setInterval(() => {
+    if (status && timeout > 0) {
+      setTimeout(() => {
         if (timeout > 0) {
           setTime(time => time - 1)
         }
       }, 1000)
     }
-  }, [status])
-
-  useEffect(() => {
     if (timeout === 0) {
       navigation.push('/auth/signin')
     }
-  }, [timeout, navigation])
+  }, [status, timeout, navigation])
 
   const confirmAccount = async ({ code, id }: { id: string; code: string }) => {
-    const response = await axios.put(`${baseURL}/user/confirm`, { id, code })
+    const response = await api.put(`user/confirm`, { id, code })
     const message = response.data.message
     if (message.trim() === 'Conta confirmada!') {
       setStatus(true)

@@ -3,7 +3,6 @@ import Image from 'next/image'
 
 import Header from '@/components/header'
 import { RegisterCard } from '@/components/cards/RegisterCard'
-import { Toast } from '@/components/toast'
 
 const Register: React.FC = () => {
   return (
@@ -24,7 +23,6 @@ const Register: React.FC = () => {
           />
         </div>
       </main>
-      <Toast />
     </>
   )
 }

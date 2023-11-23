@@ -1,14 +1,12 @@
 'use client'
-
-import { MenuIcon, X } from 'lucide-react'
-import Image from 'next/image'
+import { MenuIcon } from 'lucide-react'
 import NextLink from 'next/link'
-import React, { useEffect, useState } from 'react'
 
-type LinkProps = {
-  href: string
-  name: string
-}
+import Image from 'next/image'
+import React from 'react'
+import { SideNavigation } from './SideNavigation'
+import { useNavigationContext } from '@/services/context/NavigationContext'
+
 const Link: React.FC<LinkProps> = ({ href, name }) => {
   return (
     <NextLink
@@ -25,23 +23,30 @@ const Link: React.FC<LinkProps> = ({ href, name }) => {
   )
 }
 
-const Header: React.FC = () => {
-  const [open, setOpen] = useState(false)
+type HeaderProps = {
+  links?: LinkProps[]
+}
 
-  const handleOpen = () => {
-    setOpen(prev => !prev)
+const Header: React.FC<HeaderProps> = () => {
+  const navigationContext = useNavigationContext()
+
+  const openDrawer = () => {
+    navigationContext.changeDrawer(true)
   }
-
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflowY = 'hidden'
-    } else {
-      document.body.style.overflowY = 'scroll'
-    }
-  }, [open])
-
   return (
     <>
+      <div
+        className={`absolute w-screen h-screen
+      transition-colors duration-300 ease-linear
+       ${
+         navigationContext.openDrawer
+           ? 'bg-zinc-950 z-10 bg-opacity-50'
+           : '-z-50 bg-transparent'
+       }
+       `}
+      >
+        <SideNavigation />
+      </div>
       <header
         className={`w-screen pl-12 pr-12 bg-primary-200 flex justify-between items-center
         max-[400px]:px-6    
@@ -56,40 +61,10 @@ const Header: React.FC = () => {
           <Link href={'/auth/register'} name={'Register'} />
         </div>
 
-        <div className="min-[600px]:hidden">
-          <MenuIcon className="text-white" size={36} onClick={handleOpen} />
+        <div className="min-[601px]:hidden" onClick={openDrawer}>
+          <MenuIcon className="text-white" size={36} />
         </div>
       </header>
-      <div
-        className={`
-          z-[999] bg-primary-200 absolute left-0 right-0 
-          flex items-center justify-center 
-          ${
-            open ? 'top-[0] duration-300' : 'top-[-50vh] duration-300'
-          } h-[50vh] rounded-b-3xl transition-all ease-linear
-          
-          flex flex-col gap-10
-          `}
-      >
-        <NextLink
-          className="text-[1.8rem] text-white font-bold"
-          href={'/auth/signin'}
-        >
-          SingIn
-        </NextLink>
-        <NextLink
-          className="text-[1.8rem] text-white font-bold"
-          href={'/auth/register'}
-        >
-          Register
-        </NextLink>
-
-        <X
-          className={'text-white absolute top-[2rem] right-[1rem]'}
-          size={36}
-          onClick={handleOpen}
-        />
-      </div>
     </>
   )
 }

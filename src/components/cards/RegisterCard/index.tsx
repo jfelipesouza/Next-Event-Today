@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import axios from 'axios'
 
 import { FormButton, FormCard, InputForm, Form } from '../../forms'
 import { toast } from 'react-toastify'
+import { api } from '@/services/api'
 
 const registerFormSchema = z
   .object({
@@ -35,7 +35,6 @@ const registerFormSchema = z
   })
 
 type FormDataType = z.infer<typeof registerFormSchema>
-const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 export const RegisterCard = () => {
   const {
@@ -52,7 +51,7 @@ export const RegisterCard = () => {
     const body = { email: data.email, password: data.password, type: 'client' }
     try {
       setDisabled(prev => !prev)
-      const { data } = await axios.post(`${baseUrl}/user/register`, body)
+      const { data } = await api.post(`/user/register`, body)
       toast.success(data.message)
     } catch (error: any) {
       toast.error(error.response.data.message)

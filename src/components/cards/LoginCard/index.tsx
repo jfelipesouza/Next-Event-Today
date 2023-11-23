@@ -3,11 +3,10 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import axios from 'axios'
 
 import { FormButton, FormCard, InputForm, Form } from '../../forms'
-import { toast } from 'react-toastify'
 import Link from 'next/link'
+import { useAuthContext } from '@/services/context/AuthContext'
 
 const loginFormSchema = z.object({
   email: z
@@ -25,9 +24,8 @@ const loginFormSchema = z.object({
 })
 
 type FormDataType = z.infer<typeof loginFormSchema>
-const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
-export const LoginCard = () => {
+export const LoginCard: React.FC = () => {
   const {
     handleSubmit,
     register,
@@ -37,22 +35,13 @@ export const LoginCard = () => {
     resolver: zodResolver(loginFormSchema)
   })
   const [disabled, setDisabled] = useState(false)
+  const authContext = useAuthContext()
 
   const handleSignIn = async (data: FormDataType) => {
     setDisabled(prev => !prev)
     const body = { email: data.email, password: data.password }
-    try {
-      const { data } = await axios.post(`${baseUrl}/user/signin`, body)
-      if (data.type === 'SUCCESS') {
-        toast.success('Bem vindo!')
-      } else {
-        toast.warn(data.message, { style: { color: '#222' } })
-      }
-    } catch (error: any) {
-      toast.error(error.response.data.message)
-    } finally {
-      reset()
-    }
+    await authContext.signIn(body)
+    reset()
     setDisabled(prev => !prev)
   }
 
