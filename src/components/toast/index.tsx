@@ -16,6 +16,8 @@ export const Toast = () => {
         right: 0,
         height: 'auto'
       }}
+      pauseOnHover={false}
+      autoClose={2000}
     />
   )
 }

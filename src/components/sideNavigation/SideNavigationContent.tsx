@@ -1,22 +1,34 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import Image from 'next/image'
 import { useNavigationContext } from '@/services/context/NavigationContext'
+import { useAuthContext } from '@/services/context/AuthContext'
+import { routerSideNavigation } from '@/services/constants/routersLinks'
+import { SideNavigationActions } from './SideNavigationActions'
 
 export const SideNavigation: React.FC = () => {
   const navigationContext = useNavigationContext()
+  const { user } = useAuthContext()
+
+  const [routers, setRouters] = useState<RouterSideNavigation[] | null>(null)
 
   const closeNavigation = () => {
     navigationContext.changeDrawer(!navigationContext.openDrawer)
   }
 
   useEffect(() => {
-    if (navigationContext.openDrawer === true) {
-      document.body.style.overflow = 'hidden'
-      console.log('asdasdads')
+    if (user !== null) {
+      if (user.type === 'client' || user.type === 'admin') {
+        const links = routerSideNavigation[user.type]
+        setRouters(links)
+      } else {
+        setRouters(routerSideNavigation.logout)
+      }
+    } else {
+      setRouters(routerSideNavigation.logout)
     }
-  }, [navigationContext.openDrawer])
+  }, [user, routers])
 
   return (
     <div
@@ -26,14 +38,14 @@ export const SideNavigation: React.FC = () => {
         ${
           navigationContext.openDrawer === true
             ? 'translate-x-[-0%]'
-            : 'translate-x-[-100%] bg-transparent'
+            : 'translate-x-[-100%] duration-0 bg-transparent'
         }
        `}
     >
       {navigationContext.openDrawer && (
         <>
           <header className="flex flex-row justify-between items-center h-12 gap-4">
-            <div className="flex flex-1 h-12 relative">
+            <div className="flex flex-1 h-12  relative">
               <Image src="/logo.svg" alt="Logo" priority fill />
             </div>
             <div onClick={closeNavigation}>
@@ -41,7 +53,18 @@ export const SideNavigation: React.FC = () => {
             </div>
           </header>
 
-          <main className="flex flex-1 flex-col"> </main>
+          <main className="flex flex-1 flex-col gap-4 pt-20">
+            {routers &&
+              routers.map(({ icon, name, redirect }) => (
+                <SideNavigationActions
+                  name={name}
+                  redirect={redirect}
+                  icon={icon}
+                  key={name}
+                />
+              ))}
+          </main>
+
           <footer className="flex">
             <span className="text-center whitespace-pre-wrap text-white font-bold ">
               © 2023 - EVENT TODAY SERVICOS DE RESERVAS, INTERMEDIAÇÃO E

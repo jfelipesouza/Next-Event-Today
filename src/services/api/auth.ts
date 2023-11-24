@@ -29,7 +29,7 @@ export const handleSignIn = async ({
       })
       setCookie(undefined, TOKEN.APP_USER, JSON.stringify(data.user), {
         maxAge: 60 * 60 * 24 * 3,
-        path: '/user'
+        path: '/'
       })
 
       user = data.user

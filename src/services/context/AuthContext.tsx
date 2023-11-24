@@ -1,8 +1,11 @@
 'use client'
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { handleLogOut, handleSignIn } from '../api/auth'
+import { parseCookies } from 'nookies'
+
 import { Toast } from '@/components/toast'
+import { handleLogOut, handleSignIn } from '../api/auth'
+import { TOKEN } from '../constants/tokens'
 
 const AuthContext = createContext({} as AuthContextType)
 
@@ -24,6 +27,18 @@ const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
     handleLogOut()
     navigation.replace('/')
   }
+
+  const init = () => {
+    const cookies = parseCookies(undefined)
+    if (Object.keys(cookies).length > 0) {
+      if (cookies[TOKEN.APP_USER]) {
+        const userCookie: UserData = JSON.parse(cookies[TOKEN.APP_USER])
+        setUser(userCookie)
+      }
+    }
+  }
+
+  useEffect(init, [])
 
   return (
     <AuthContext.Provider

@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Header from '@/components/header'
 import { NavigationProvider } from '@/services/context/NavigationContext'
+import { SideNavigation } from '@/components/sideNavigation'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -32,6 +33,7 @@ export default function RootLayout({
           <NavigationProvider>
             <Header />
             {children}
+            <SideNavigation />
           </NavigationProvider>
         </AuthContextProvider>
       </body>
