@@ -3,7 +3,6 @@ import './globals.css'
 
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Header from '@/components/header'
 import { NavigationProvider } from '@/services/context/NavigationContext'
 import { SideNavigation } from '@/components/sideNavigation'
 
@@ -20,7 +19,6 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   icons: { apple: '/icon.png', icon: '/icon.png' }
 }
-
 export default function RootLayout({
   children
 }: {
@@ -31,7 +29,6 @@ export default function RootLayout({
       <body>
         <AuthContextProvider>
           <NavigationProvider>
-            <Header />
             {children}
             <SideNavigation />
           </NavigationProvider>

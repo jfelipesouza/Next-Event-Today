@@ -16,16 +16,21 @@ const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
   const signIn = async ({ email, password }: SingnInData) => {
     try {
       const userData = await handleSignIn({ email, password })
-      setUser(userData)
-      navigation.replace('/user')
+      if (userData) {
+        setUser(userData)
+        navigation.replace(`/user/${userData.id}`)
+      }
     } catch (error: any) {
       console.log(error)
     }
   }
 
-  const logOut = () => {
+  const logOut = (redirect?: string) => {
     handleLogOut()
-    navigation.replace('/')
+    if (redirect) {
+      navigation.replace(redirect)
+    }
+    setUser(null)
   }
 
   const init = () => {
@@ -37,7 +42,9 @@ const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
       }
     }
   }
-
+  const updateUserInfo = (data: UserData) => {
+    setUser(data)
+  }
   useEffect(init, [])
 
   return (
@@ -45,7 +52,8 @@ const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
       value={{
         signIn,
         user,
-        logOut
+        logOut,
+        updateUserInfo
       }}
     >
       {children}

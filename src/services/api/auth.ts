@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify'
 
-import { setCookie, destroyCookie } from 'nookies'
+import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import { TOKEN } from '../constants/tokens'
 import { api } from '../api'
 
@@ -38,14 +38,23 @@ export const handleSignIn = async ({
     }
   } catch (error: any) {
     console.log(error)
-    toast.error(error.response.data.message)
+
+    if (typeof error.response.data.message === 'string') {
+      toast.error(error.response.data.message)
+    } else {
+      toast.error('Erro ao fazer login')
+    }
   } finally {
     return user
   }
 }
 
 export const handleLogOut = () => {
-  destroyCookie(undefined, TOKEN.LOGIN_TOKEN)
-  destroyCookie(undefined, TOKEN.REFRESH_TOKEN)
-  destroyCookie(undefined, TOKEN.APP_USER)
+  const allCookies = parseCookies()
+  if (Object.keys(allCookies).length > 0) {
+    for (let cookie in allCookies) {
+      console.log({ [cookie]: allCookies[cookie] })
+      destroyCookie(undefined, cookie, { path: '/' })
+    }
+  }
 }

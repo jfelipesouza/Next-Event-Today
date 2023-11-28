@@ -28,11 +28,13 @@ const InputFormComponent: React.ForwardRefRenderFunction<
           w-full pl-3 pr-10 h-12 
           text-base text-slate-900 rounded-md
           hover:cursor-pointer hover:border-[3px] focus:border-[3px]
-          placeholder:text-slate-400  
+          placeholder:text-slate-400  hover:border-primary-300
+          focus:ring-primary-300 focus:border-primary-300
           border-2  ${
             error
-              ? `border-emphasys-400 hover:border-emphasys-500`
-              : `border-slate-500 hover:border-primary-300 focus:border-primary-500 `
+              ? `border-emphasys-400 hover:border-emphasys-500 focus:ring-emphasys-300 focus:border-emphasys-300
+              `
+              : `border-slate-500 `
           }
          `}
           ref={ref}

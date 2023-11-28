@@ -11,7 +11,7 @@ const routerNames: RouterNamesObject = {
   admin: [],
   client: [
     { name: 'Perfil', redirect: '/user' },
-    { name: 'Eventos', redirect: '/user/search' },
+    { name: 'Eventos', redirect: '/' },
     { name: 'Configurações', redirect: '/user/info' }
   ],
   logout: [

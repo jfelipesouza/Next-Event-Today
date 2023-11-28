@@ -4,7 +4,8 @@ type AuthContextProps = {
 type AuthContextType = {
   signIn: ({}: SingnInData) => Promise<void>
   user: UserData | null
-  logOut: () => void
+  logOut: (redirect?: string) => void
+  updateUserInfo: (data: UserData) => void
 }
 type SingnInData = {
   email: string

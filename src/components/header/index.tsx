@@ -8,11 +8,11 @@ import { LinksContainer } from './LinksContainer'
 const Header: React.FC = () => {
   return (
     <header
-      className={`w-screen pl-12 pr-12 bg-primary-200 flex justify-between items-center
+      className={`w-screen pl-12 pr-12 bg-primary-300 flex justify-between items-center
         max-[400px]:px-6    
       `}
     >
-      <NextLink href={'/'} className="  max-[400px]:w-40 relative w-44 h-24">
+      <NextLink href={'/'} className="max-[400px]:w-40 relative w-44 h-24">
         <Image src="/logo.svg" alt="Logo" priority fill />
       </NextLink>
       <LinksContainer />

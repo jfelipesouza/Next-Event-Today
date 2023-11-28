@@ -1,14 +1,7 @@
 import React from 'react'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 import { Search } from 'lucide-react'
-import { parseCookies } from 'nookies'
-
-import { TOKEN } from '@/services/constants/tokens'
 
 const Home = async () => {
-  await init()
-
   return (
     <main className=" w-screen min-h-screen flex flex-col items-center px-8 max-[500px]:px-4">
       <h2 className="font-black text-3xl max-[400px]:text-2xl text-center  mt-12 mb-12">
@@ -45,15 +38,3 @@ const Home = async () => {
 }
 
 export default Home
-
-const init = async () => {
-  try {
-    const token = cookies().get(TOKEN.LOGIN_TOKEN)?.value
-
-    if (typeof token !== undefined && token) {
-      redirect('/user')
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}

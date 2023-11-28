@@ -1,22 +1,21 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { titleCase } from '@/utils/strings'
+import React from 'react'
 import { MenuIcon } from 'lucide-react'
+
+import { titleCase } from '@/utils/strings'
 import { useNavigationContext } from '@/services/context/NavigationContext'
-import { useAuthContext } from '@/services/context/AuthContext'
 import { routerNames } from '@/services/constants/routersLinks'
 import { Link } from './LinkComponent'
 
 export const LinksContainer: React.FC = () => {
   const { changeDrawer } = useNavigationContext()
-  const { user } = useAuthContext()
 
   const openDrawer = () => {
     changeDrawer(true)
   }
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (user !== null) {
       if (user.type === 'client' || user.type === 'admin') {
         const links = routerNames[user.type]
@@ -27,14 +26,12 @@ export const LinksContainer: React.FC = () => {
     } else {
       setRouters(routerNames.logout)
     }
-  }, [user])
-
-  const [routers, setRouters] = useState<RouterNames[] | null>(null)
+  }, [user]) */
 
   return (
     <div>
       <div className="gap-4 flex max-[600px]:hidden">
-        {routers?.map(({ name, redirect }) => (
+        {routerNames.logout.map(({ name, redirect }) => (
           <Link href={redirect} name={titleCase(name)} key={name} />
         ))}
       </div>

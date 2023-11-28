@@ -15,8 +15,8 @@ const SignIn: React.FC = () => {
           src={'/signin.png'}
           fill
           style={{ objectFit: 'cover' }}
-          placeholder="blur"
           blurDataURL={'/signin.png'}
+          priority
         />
       </div>
     </main>

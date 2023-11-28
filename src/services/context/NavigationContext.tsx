@@ -9,6 +9,11 @@ const NavigationProvider: React.FC<NavigationProviderProps> = ({
   const [openDrawer, setOpenDrawer] = useState(false)
 
   const changeDrawer = (status: boolean) => {
+    if (status === true) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflowY = 'scroll'
+    }
     setOpenDrawer(status)
   }
   return (
