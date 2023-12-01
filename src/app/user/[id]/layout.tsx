@@ -1,6 +1,5 @@
+import Sidebar from '@/components/sidebar'
 import { Metadata } from 'next'
-
-import UserHeader from '@/components/UserHeader'
 
 export const metadata: Metadata = {
   title: 'Event Today - User',
@@ -15,9 +14,9 @@ export default function ClientLayout({
   children: React.ReactNode
 }) {
   return (
-    <>
-      <UserHeader />
+    <div className="w-screen h-screen relative">
+      <Sidebar />
       {children}
-    </>
+    </div>
   )
 }

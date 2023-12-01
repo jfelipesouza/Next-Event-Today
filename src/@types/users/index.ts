@@ -16,3 +16,9 @@ type UserData = {
     phone?: string
   }
 }
+
+type UserLogin = {
+  user: UserData
+  type: string
+  token: string
+}

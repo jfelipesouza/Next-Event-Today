@@ -40,7 +40,9 @@ export const LoginCard: React.FC = () => {
   const handleSignIn = async (data: FormDataType) => {
     setDisabled(prev => !prev)
     const body = { email: data.email, password: data.password }
+
     await authContext.signIn(body)
+
     reset()
     setDisabled(prev => !prev)
   }

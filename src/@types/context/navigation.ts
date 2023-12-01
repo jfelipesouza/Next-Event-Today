@@ -6,3 +6,12 @@ type NavigationContextType = {
 type NavigationProviderProps = {
   children: React.ReactNode
 }
+
+type SidebarContextType = {
+  status: boolean
+  changeStatus: (status: boolean) => void
+}
+
+type SidebarProviderProps = {
+  children: React.ReactNode
+}
