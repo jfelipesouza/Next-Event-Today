@@ -1,11 +1,13 @@
 import React from 'react'
-import Header from '@/components/header'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
+import Header from '@/components/header'
 import { TOKEN } from '@/services/constants/tokens'
 
-const HomeLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const PublicLayout: React.FC<{ children: React.ReactNode }> = ({
+  children
+}) => {
   init()
   return (
     <>
@@ -15,11 +17,15 @@ const HomeLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   )
 }
 
-export default HomeLayout
+export default PublicLayout
 
 const init = () => {
   const userCookie = cookies().has(TOKEN.APP_USER)
   if (userCookie) {
-    redirect('/user')
+    const user = JSON.parse(cookies().get(TOKEN.APP_USER)!.value)
+    console.log({ userDATA: user })
+    if (user) {
+      redirect(`/user/${user.id}`)
+    }
   }
 }

@@ -1,11 +1,10 @@
-import { AuthContextProvider } from '@/services/context/AuthContext'
 import './globals.css'
 
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { NavigationProvider } from '@/services/context/NavigationContext'
 import { SideNavigation } from '@/components/sideNavigation'
-import Header from '@/components/header'
+import { AuthContextProvider } from '@/services/context/AuthContext'
 
 const inter = Inter({
   subsets: ['latin'],

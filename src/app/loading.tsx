@@ -1,30 +1,6 @@
-'use client'
-import React, { useEffect } from 'react'
-import { redirect } from 'next/navigation'
-import { parseCookies } from 'nookies'
+import React from 'react'
 
-import { TOKEN } from '@/services/constants/tokens'
-import { useAuthContext } from '@/services/context/AuthContext'
-
-const UserPage = () => {
-  const authContext = useAuthContext()
-
-  const init = () => {
-    const allCookies = parseCookies(undefined)
-    if (allCookies && allCookies[TOKEN.APP_USER]) {
-      const user = JSON.parse(allCookies[TOKEN.APP_USER]) as UserData
-      if (user) {
-        redirect(`/user/${user.id}`)
-      } else {
-        authContext.logOut('/auth/signin')
-      }
-    } else {
-      authContext.logOut()
-    }
-  }
-
-  useEffect(init, [authContext])
-
+const DefaultLoadingPage: React.FC = () => {
   return (
     <main className="min-w-[100vw] min-h-[100vh] flex flex-1 items-center justify-center gap-4 ">
       <div role="status">
@@ -51,4 +27,4 @@ const UserPage = () => {
   )
 }
 
-export default UserPage
+export default DefaultLoadingPage

@@ -1,5 +1,7 @@
-import Sidebar from '@/components/sidebar'
+import { SidebarProvider } from '@/services/context/SidebarContext'
 import { Metadata } from 'next'
+
+import Sidebar from '@/components/sidebar'
 
 export const metadata: Metadata = {
   title: 'Event Today - User',
@@ -14,9 +16,9 @@ export default function ClientLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="w-screen h-screen relative">
+    <SidebarProvider>
       <Sidebar />
       {children}
-    </div>
+    </SidebarProvider>
   )
 }

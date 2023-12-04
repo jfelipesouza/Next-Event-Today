@@ -9,7 +9,7 @@ type NavigationProviderProps = {
 
 type SidebarContextType = {
   status: boolean
-  changeStatus: (status: boolean) => void
+  changeStatus: () => void
 }
 
 type SidebarProviderProps = {

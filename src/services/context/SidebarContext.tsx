@@ -6,8 +6,8 @@ const SidebarContext = createContext({} as SidebarContextType)
 const SidebarProvider: React.FC<SidebarProviderProps> = ({ children }) => {
   const [status, setStatus] = useState(false)
 
-  const changeStatus = (status: boolean) => {
-    setStatus(prev => prev !== status && status)
+  const changeStatus = () => {
+    setStatus(prev => !prev)
   }
   return (
     <SidebarContext.Provider value={{ status, changeStatus }}>
