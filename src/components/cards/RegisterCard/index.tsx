@@ -50,7 +50,6 @@ export const RegisterCard = () => {
 
   const handleCreateUser = async (data: FormDataType) => {
     const body = { email: data.email, password: data.password, type: data.type }
-    console.log({ body })
     try {
       setDisabled(prev => !prev)
       const { data } = await api.post(`/user/register`, body)

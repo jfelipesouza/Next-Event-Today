@@ -15,19 +15,6 @@ export const LinksContainer: React.FC = () => {
     changeDrawer(true)
   }
 
-  /*   useEffect(() => {
-    if (user !== null) {
-      if (user.type === 'client' || user.type === 'admin') {
-        const links = routerNames[user.type]
-        setRouters(links)
-      } else {
-        setRouters(routerNames.logout)
-      }
-    } else {
-      setRouters(routerNames.logout)
-    }
-  }, [user]) */
-
   return (
     <div>
       <div className="gap-4 flex max-[600px]:hidden">

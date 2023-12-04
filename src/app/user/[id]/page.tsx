@@ -1,15 +1,14 @@
-import { api } from '@/services/api'
 import React from 'react'
 
 const DynamicUserPage = async (props: any) => {
   const userData = await fetchData(props.params.id)
 
-  console.log({ userData })
-
-  return <main className="w-screen min-h-screen px-8 py-5 "></main>
+  return (
+    <main className="flex flex-col flex-1 min-h-screen px-8 py-5 ">
+      <pre>{JSON.stringify(userData)}</pre>
+    </main>
+  )
 }
-
-export default DynamicUserPage
 
 const baseUrl = process.env.NEXT_API_URL
 
@@ -20,3 +19,5 @@ const fetchData = async (id: string): Promise<UserData> => {
 
   return await response.json()
 }
+
+export default DynamicUserPage

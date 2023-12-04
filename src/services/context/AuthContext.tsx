@@ -20,9 +20,7 @@ const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
         setUser(userData)
         navigation.replace(`/user/${userData.id}`)
       }
-    } catch (error: any) {
-      console.log(error)
-    }
+    } catch (error: any) {}
   }
 
   const logOut = (redirect?: string) => {

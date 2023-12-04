@@ -37,8 +37,6 @@ export const handleSignIn = async ({
       toast.warn(data.message, { style: { color: '#222' } })
     }
   } catch (error: any) {
-    console.log(error)
-
     if (typeof error.response.data.message === 'string') {
       toast.error(error.response.data.message)
     } else {
@@ -53,7 +51,6 @@ export const handleLogOut = () => {
   const allCookies = parseCookies()
   if (Object.keys(allCookies).length > 0) {
     for (let cookie in allCookies) {
-      console.log({ [cookie]: allCookies[cookie] })
       destroyCookie(undefined, cookie, { path: '/' })
     }
   }
