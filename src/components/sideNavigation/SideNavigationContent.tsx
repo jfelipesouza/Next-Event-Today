@@ -1,34 +1,18 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { X } from 'lucide-react'
 import Image from 'next/image'
+
 import { useNavigationContext } from '@/services/context/NavigationContext'
-import { useAuthContext } from '@/services/context/AuthContext'
 import { routerSideNavigation } from '@/services/constants/routersLinks'
 import { SideNavigationActions } from './SideNavigationActions'
 
 export const SideNavigation: React.FC = () => {
   const navigationContext = useNavigationContext()
-  const { user } = useAuthContext()
-
-  const [routers, setRouters] = useState<RouterSideNavigation[] | null>(null)
 
   const closeNavigation = () => {
     navigationContext.changeDrawer(!navigationContext.openDrawer)
   }
-
-  useEffect(() => {
-    if (user !== null) {
-      if (user.type === 'client' || user.type === 'admin') {
-        const links = routerSideNavigation[user.type]
-        setRouters(links)
-      } else {
-        setRouters(routerSideNavigation.logout)
-      }
-    } else {
-      setRouters(routerSideNavigation.logout)
-    }
-  }, [user, routers])
 
   return (
     <div
@@ -54,15 +38,14 @@ export const SideNavigation: React.FC = () => {
           </header>
 
           <main className="flex flex-1 flex-col gap-4 pt-20">
-            {routers &&
-              routers.map(({ icon, name, redirect }) => (
-                <SideNavigationActions
-                  name={name}
-                  redirect={redirect}
-                  icon={icon}
-                  key={name}
-                />
-              ))}
+            {routerSideNavigation.map(({ icon, name, redirect }) => (
+              <SideNavigationActions
+                name={name}
+                redirect={redirect}
+                icon={icon}
+                key={name}
+              />
+            ))}
           </main>
 
           <footer className="flex">

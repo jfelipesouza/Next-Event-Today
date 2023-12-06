@@ -2,8 +2,6 @@ import './globals.css'
 
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { NavigationProvider } from '@/services/context/NavigationContext'
-import { SideNavigation } from '@/components/sideNavigation'
 import { AuthContextProvider } from '@/services/context/AuthContext'
 
 const inter = Inter({
@@ -27,12 +25,7 @@ export default function RootLayout({
   return (
     <html className={inter.variable} lang="pt-BR">
       <body>
-        <AuthContextProvider>
-          <NavigationProvider>
-            {children}
-            <SideNavigation />
-          </NavigationProvider>
-        </AuthContextProvider>
+        <AuthContextProvider>{children}</AuthContextProvider>
       </body>
     </html>
   )

@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 
 import { TOKEN } from '@/services/constants/tokens'
+import { deleteAllCookies } from '@/services/actions/cookies'
 
 const UserPage: React.FC = () => {
   init()
@@ -35,14 +36,23 @@ const UserPage: React.FC = () => {
 export default UserPage
 
 const init = () => {
-  const userCookie = cookies().has(TOKEN.APP_USER)
-  if (userCookie) {
-    const user = cookies().get(TOKEN.APP_USER)?.value
-    if (user) {
-      const userData = JSON.parse(user) as UserData
-      redirect(`/user/${userData.id}`)
+  const allCookies = cookies().getAll()
+  if (allCookies.length > 0) {
+    const userCookie = cookies().has(TOKEN.APP_USER)
+    if (userCookie) {
+      const user = cookies().get(TOKEN.APP_USER)?.value
+      if (user) {
+        const userData = JSON.parse(user) as UserData
+        redirect(`/user/${userData.id}`)
+      } else {
+        deleteAllCookies()
+        redirect('/auth/signin')
+      }
     } else {
+      deleteAllCookies()
       redirect('/auth/signin')
     }
+  } else {
+    redirect('/auth/signin')
   }
 }

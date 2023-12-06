@@ -18,7 +18,7 @@ export const LinksContainer: React.FC = () => {
   return (
     <div>
       <div className="gap-4 flex max-[600px]:hidden">
-        {routerNames.logout.map(({ name, redirect }) => (
+        {routerNames.map(({ name, redirect }) => (
           <Link href={redirect} name={titleCase(name)} key={name} />
         ))}
       </div>

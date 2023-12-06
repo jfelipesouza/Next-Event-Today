@@ -1,12 +1,12 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 
 import { ArrowLeft, Home, SearchCheck, Settings2 } from 'lucide-react'
 import Footer from './Footer'
 import { useAuthContext } from '@/services/context/AuthContext'
 import { useSidebarContext } from '@/services/context/SidebarContext'
-import Link from 'next/link'
 
 const Sidebar: React.FC = () => {
   const { user } = useAuthContext()
