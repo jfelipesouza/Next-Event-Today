@@ -7,10 +7,8 @@ import { TOKEN } from '@/services/constants/tokens'
 import { NavigationProvider } from '@/services/context/NavigationContext'
 import { SideNavigation } from '@/components/sideNavigation'
 
-const PublicLayout: React.FC<{ children: React.ReactNode }> = ({
-  children
-}) => {
-  init()
+const PublicLayout = async ({ children }: { children: React.ReactNode }) => {
+  await init()
   return (
     <NavigationProvider>
       <Header />
@@ -22,7 +20,7 @@ const PublicLayout: React.FC<{ children: React.ReactNode }> = ({
 
 export default PublicLayout
 
-const init = () => {
+const init = async () => {
   const userCookie = cookies().has(TOKEN.APP_USER)
   if (userCookie) {
     const userData = cookies().get(TOKEN.APP_USER)?.value

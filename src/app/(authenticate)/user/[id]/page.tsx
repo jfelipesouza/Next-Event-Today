@@ -4,22 +4,44 @@ import { redirect } from 'next/navigation'
 
 import { TOKEN } from '@/services/constants/tokens'
 import { deleteAllCookies } from '@/services/actions/cookies'
+import { UserHeader } from '@/components/userHeader'
+import EventsCard from '@/components/cards/EventsCards'
 
-const DynamicUserPage = async (props: any) => {
+const DynamicUserPage = async () => {
   const user = await init()
+  // await fetchEvents(user.id)
+  const map = [
+    { id: 'as' },
+    { id: 'asasd' },
+    { id: 'asasda' },
+    { id: 'asasda' },
+    { id: 'asasdasd' },
+    { id: 'asdasda' }
+  ]
 
   return (
     <main
-      className={`flex flex-1 flex-wrap overflow-y-scroll overflow-x-hidden gap-1 px-4 py-8 h-screen bg-red-400`}
+      className={`flex flex-1 flex-col flex-wrap overflow-x-hidden h-screen`}
     >
-      {props.params.id}
-
-      <pre>{JSON.stringify(user, null, 2)}</pre>
+      <UserHeader user={user} />
+      <section
+        className={
+          'overflow-y-scroll overflow-x-hidden flex flex-col px-8 py-8 flex-1'
+        }
+      >
+        <h2 className="my-8 text-3xl font-bold">Meus Eventos</h2>
+        <div className="flex justify-center flex-wrap gap-8">
+          {map.map(({ id }) => (
+            <EventsCard.Container key={id}>
+              <EventsCard.Banner></EventsCard.Banner>
+              <EventsCard.Content></EventsCard.Content>
+            </EventsCard.Container>
+          ))}
+        </div>
+      </section>
     </main>
   )
 }
-
-const baseUrl = process.env.NEXT_API_URL
 
 const init = async () => {
   'use server'
@@ -43,7 +65,14 @@ const init = async () => {
   }
 }
 
+const baseUrl = process.env.NEXT_API_URL
+
 const fetchEvents = async (id: string): Promise<Events[] | null> => {
+  const response = await fetch(`${baseUrl}/events/user?id=${id}`, {
+    cache: 'no-store'
+  })
+  const data = await response.json()
+  console.log({ data })
   return null
 }
 

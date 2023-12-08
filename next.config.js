@@ -8,8 +8,16 @@ const nextConfig = {
       register: true,
       skipWaiting: true
     }
-    // Restante da sua configuração Next.js
-  })
+  }),
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'tjhgywhkfrkgnynwbcuy.supabase.co'
+      }
+    ]
+  }
 }
 
 module.exports = nextConfig

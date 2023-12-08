@@ -11,7 +11,6 @@ import { useSidebarContext } from '@/services/context/SidebarContext'
 const Sidebar: React.FC = () => {
   const { user } = useAuthContext()
   const { status, changeStatus } = useSidebarContext()
-  console.log({ user })
 
   const linksMap = [
     {
@@ -22,43 +21,44 @@ const Sidebar: React.FC = () => {
     {
       link: 'search',
       icon: <SearchCheck className="text-white" size={24} />,
-      name: 'Buscar Eventos'
+      name: 'Eventos'
     },
     {
       link: 'settings',
       icon: <Settings2 className="text-white" size={24} />,
-      name: 'Home'
+      name: 'Configurações'
     }
   ]
 
   return (
     <aside
-      id="separator-sidebar"
-      className={`fixed top-0 left-0 bottom-0 z-40 w-64 ${
-        status ? '-translate-x-full' : '-translate-x-0'
-      } `}
+      className={`h-screen z-40  ${status ? 'w-16' : 'w-64'}`}
       aria-label="Sidebar"
       style={{ transition: 'all 300ms cubic-bezier(0.2, 0, 0, 1) 0s' }}
     >
-      <div className="h-full flex flex-col justify-between px-3 py-4 overflow-y-auto bg-gray-800">
-        <div>
+      <div className="h-full flex flex-col justify-between px-3 py-4 bg-gray-800">
+        <div className="flex flex-col">
           <div
             onClick={changeStatus}
-            className={
-              'flex items-end p-4 rounded justify-end cursor-pointer mb-6'
-            }
+            className={` flex rounded ${
+              status ? 'justify-center items-center ' : 'items-end justify-end '
+            } cursor-pointer mb-12`}
           >
-            <ArrowLeft className="text-white" size={30} />
+            <ArrowLeft
+              size={24}
+              className={`text-white ${status ? 'rotate-180' : 'rotate-0'} `}
+              style={{ transition: 'all 300ms cubic-bezier(0.2, 0, 0, 1) 0s' }}
+            />
           </div>
-          <ul className="space-y-2 font-medium">
+          <ul className=" flex flex-col h-full space-y-2 font-medium overflow-x-hidden overflow-y-auto">
             {linksMap.map((item, index) => (
               <li key={index}>
                 <Link
                   href={`/user/${user?.id}/${item.link}`}
-                  className="flex items-center p-2  rounded-lg text-white hover:bg-gray-700 group"
+                  className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group gap-3"
                 >
-                  {item.icon}
-                  <span className="ms-3">{item.name}</span>
+                  <div style={{ width: '2.5rem' }}>{item.icon}</div>
+                  {!status && <span>{item.name}</span>}
                 </Link>
               </li>
             ))}

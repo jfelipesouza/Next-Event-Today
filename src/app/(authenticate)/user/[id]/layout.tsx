@@ -17,8 +17,10 @@ export default function ClientLayout({
 }) {
   return (
     <SidebarProvider>
-      <Sidebar />
-      {children}
+      <div className={'flex flex-1'}>
+        <Sidebar />
+        {children}
+      </div>
     </SidebarProvider>
   )
 }
