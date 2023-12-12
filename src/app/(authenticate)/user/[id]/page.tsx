@@ -1,29 +1,53 @@
 import React from 'react'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 
-import { TOKEN } from '@/services/constants/tokens'
-import { deleteAllCookies } from '@/services/actions/cookies'
 import { UserHeader } from '@/components/userHeader'
 import EventsCard from '@/components/cards/EventsCards'
 
 const DynamicUserPage = async () => {
-  const user = await init()
   // await fetchEvents(user.id)
   const map = [
-    { id: 'as' },
-    { id: 'asasd' },
-    { id: 'asasda' },
-    { id: 'asasda' },
-    { id: 'asasdasd' },
-    { id: 'asdasda' }
+    {
+      id: 'as',
+      description: 'asdhaklsdasdl ',
+      items: ['asdasdadas', 'sdasdadsad', 'asdasdasd'],
+      favorite: true
+    },
+    {
+      id: 'asasd',
+      description: 'asdhaklsdasdl',
+      items: ['asdasdadas', 'sdasdadsad', 'asdasdasd'],
+      favorite: true
+    },
+    {
+      id: 'asasda',
+      description: 'asdhaklsdasdl',
+      items: ['asdasdadas', 'sdasdadsad', 'asdasdasd'],
+      favorite: true
+    },
+    {
+      id: 'asasda',
+      description: 'asdhaklsdasdl',
+      items: ['asdasdadas', 'sdasdadsad', 'asdasdasd'],
+      favorite: false
+    },
+    {
+      id: 'asasdasd',
+      description: 'asdhaklsdasdl',
+      items: ['asdasdadas', 'sdasdadsad', 'asdasdasd'],
+      favorite: false
+    },
+    {
+      id: 'asdasda',
+      description: 'asdhaklsdasdl',
+      items: ['asdasdadas', 'sdasdadsad', 'asdasdasd']
+    }
   ]
 
   return (
     <main
       className={`flex flex-1 flex-col flex-wrap overflow-x-hidden h-screen`}
     >
-      <UserHeader user={user} />
+      <UserHeader />
       <section
         className={
           'overflow-y-scroll overflow-x-hidden flex flex-col px-8 py-8 flex-1'
@@ -31,38 +55,21 @@ const DynamicUserPage = async () => {
       >
         <h2 className="my-8 text-3xl font-bold">Meus Eventos</h2>
         <div className="flex justify-center flex-wrap gap-8">
-          {map.map(({ id }) => (
-            <EventsCard.Container key={id}>
-              <EventsCard.Banner></EventsCard.Banner>
-              <EventsCard.Content></EventsCard.Content>
+          {map.map(({ id, description, items, favorite }) => (
+            <EventsCard.Container id={id} key={id}>
+              <EventsCard.Banner>
+                <EventsCard.Favorite isFavorite={favorite} />
+              </EventsCard.Banner>
+              <EventsCard.Content
+                subtitle={description}
+                descriptionItems={items}
+              />
             </EventsCard.Container>
           ))}
         </div>
       </section>
     </main>
   )
-}
-
-const init = async () => {
-  'use server'
-  const allCookies = cookies().getAll()
-  if (allCookies.length > 0) {
-    const userCookie = cookies().has(TOKEN.APP_USER)
-    if (userCookie) {
-      const userCookieValue = cookies().get(TOKEN.APP_USER)?.value
-      if (userCookieValue) {
-        return JSON.parse(userCookieValue) as UserData
-      } else {
-        deleteAllCookies()
-        redirect('/auth/signin')
-      }
-    } else {
-      deleteAllCookies()
-      redirect('/auth/signin')
-    }
-  } else {
-    redirect('/auth/signin')
-  }
 }
 
 const baseUrl = process.env.NEXT_API_URL

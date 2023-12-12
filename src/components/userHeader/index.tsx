@@ -2,11 +2,14 @@ import React from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { cookies } from 'next/headers'
+import { TOKEN } from '@/services/constants/tokens'
 
 type UserHeaderProps = {
   user: UserData
 }
-const UserHeader: React.FC<UserHeaderProps> = async ({ user }) => {
+const UserHeader: React.FC = async () => {
+  const user = getUser()
   return (
     <header
       className={
@@ -39,3 +42,8 @@ const UserHeader: React.FC<UserHeaderProps> = async ({ user }) => {
 }
 
 export { UserHeader }
+
+const getUser = () => {
+  const userCookie = cookies().get(TOKEN.APP_USER)
+  return JSON.parse(userCookie!.value) as UserData
+}

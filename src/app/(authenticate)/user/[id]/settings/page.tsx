@@ -11,7 +11,7 @@ const UserSettingsScreen = async () => {
 
   return (
     <main className="w-screen min-h-screen bg-red-600">
-      <UserHeader user={user} />
+      <UserHeader />
     </main>
   )
 }

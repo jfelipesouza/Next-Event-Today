@@ -8,27 +8,49 @@ import Footer from './Footer'
 import { useAuthContext } from '@/services/context/AuthContext'
 import { useSidebarContext } from '@/services/context/SidebarContext'
 
-const Sidebar: React.FC = () => {
+type SidebarProps = {
+  type?: 'admin' | 'client'
+}
+const Sidebar: React.FC<SidebarProps> = ({ type = 'client' }) => {
   const { user } = useAuthContext()
   const { status, changeStatus } = useSidebarContext()
 
-  const linksMap = [
-    {
-      link: '',
-      icon: <Home className="text-white" size={24} />,
-      name: 'Home'
-    },
-    {
-      link: 'search',
-      icon: <SearchCheck className="text-white" size={24} />,
-      name: 'Eventos'
-    },
-    {
-      link: 'settings',
-      icon: <Settings2 className="text-white" size={24} />,
-      name: 'Configurações'
-    }
-  ]
+  const linksMap = {
+    client: [
+      {
+        link: '',
+        icon: <Home className="text-white" size={24} />,
+        name: 'Home'
+      },
+      {
+        link: 'search',
+        icon: <SearchCheck className="text-white" size={24} />,
+        name: 'Eventos'
+      },
+      {
+        link: 'settings',
+        icon: <Settings2 className="text-white" size={24} />,
+        name: 'Configurações'
+      }
+    ],
+    admin: [
+      {
+        link: '',
+        icon: <Home className="text-white" size={24} />,
+        name: 'Home'
+      },
+      {
+        link: 'search',
+        icon: <SearchCheck className="text-white" size={24} />,
+        name: 'Eventos'
+      },
+      {
+        link: 'settings',
+        icon: <Settings2 className="text-white" size={24} />,
+        name: 'Configurações'
+      }
+    ]
+  }
 
   return (
     <aside
@@ -51,15 +73,25 @@ const Sidebar: React.FC = () => {
             />
           </div>
           <ul className=" flex flex-col h-full space-y-2 font-medium overflow-x-hidden overflow-y-auto">
-            {linksMap.map((item, index) => (
+            {linksMap[type].map((item, index) => (
               <li key={index}>
-                <Link
-                  href={`/user/${user?.id}/${item.link}`}
-                  className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group gap-3"
-                >
-                  <div style={{ width: '2.5rem' }}>{item.icon}</div>
-                  {!status && <span>{item.name}</span>}
-                </Link>
+                {type === 'client' ? (
+                  <Link
+                    href={`/user/${user?.id}/${item.link}`}
+                    className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group gap-3"
+                  >
+                    <div style={{ width: '2.5rem' }}>{item.icon}</div>
+                    {!status && <span>{item.name}</span>}
+                  </Link>
+                ) : (
+                  <Link
+                    href={`/admin/${user?.id}/${item.link}`}
+                    className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group gap-3"
+                  >
+                    <div style={{ width: '2.5rem' }}>{item.icon}</div>
+                    {!status && <span>{item.name}</span>}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

@@ -7,10 +7,9 @@ import { TOKEN } from '@/services/constants/tokens'
 import { deleteAllCookies } from '@/services/actions/cookies'
 
 const UserSearchScreen = async () => {
-  const user = await init()
   return (
     <main className="w-screen min-h-screen bg-emerald-500">
-      <UserHeader user={user} />
+      <UserHeader />
     </main>
   )
 }
