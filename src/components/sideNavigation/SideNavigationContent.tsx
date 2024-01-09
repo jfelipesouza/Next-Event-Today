@@ -50,7 +50,7 @@ export const SideNavigation: React.FC = () => {
 
           <footer className="flex">
             <span className="text-center whitespace-pre-wrap text-white font-bold ">
-              © 2023 - EVENT TODAY SERVICOS DE RESERVAS, INTERMEDIAÇÃO E
+              © 2023 - ALL GAMES SERVIÇOS DE RESERVAS, INTERMEDIAÇÃO E
               AGENCIAMENTO LTDA.
             </span>
           </footer>

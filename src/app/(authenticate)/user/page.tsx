@@ -1,3 +1,7 @@
+import { TOKEN } from '@/services/constants/tokens'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+
 const GenericAuthPage = async () => {
   return (
     <main className="min-w-[100vw] min-h-[100vh] flex flex-1 items-center justify-center gap-4 ">
@@ -23,6 +27,25 @@ const GenericAuthPage = async () => {
       <p>LOADING... </p>
     </main>
   )
+}
+
+const init = async () => {
+  'use server'
+  const allCookies = cookies().getAll()
+  if (allCookies.length > 0) {
+    if (cookies().has(TOKEN.APP_USER)) {
+      const token = JSON.parse(cookies().get(TOKEN.APP_USER)!.value) as UserData
+      if (token.type === 'admin') {
+        redirect(`/admin/${token.id}`)
+      } else {
+        redirect(`/user/${token.id}`)
+      }
+    } else {
+      redirect('/auth/signin')
+    }
+  } else {
+    redirect('/auth/signin')
+  }
 }
 
 export default GenericAuthPage

@@ -11,7 +11,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Event Today',
+  title: 'All Games',
   description:
     'Explore o mundo emocionante dos eventos esportivos em nosso site dedicado a amantes do esporte. Inscreva-se agora para participar de competições, jogos e partidas de alto nível. Descubra e acompanhe eventos esportivos, datas, horários e adquira ingressos com facilidade. Junte-se à nossa comunidade de entusiastas esportivos e não perca a chance de vivenciar a ação esportiva ao vivo e de perto. ',
   manifest: '/manifest.json',

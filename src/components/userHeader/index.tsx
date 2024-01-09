@@ -5,9 +5,6 @@ import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { TOKEN } from '@/services/constants/tokens'
 
-type UserHeaderProps = {
-  user: UserData
-}
 const UserHeader: React.FC = async () => {
   const user = getUser()
   return (
@@ -17,26 +14,30 @@ const UserHeader: React.FC = async () => {
       }
     >
       <h3 className={'text-base font-semibold text-slate-900'}>
-        {user!.profile.name ? user.profile.name : ''}
+        {user!.profile.name ? user.profile.name : 'Novo usuario'}
       </h3>
-      <div
-        className={`relative w-10 h-10 rounded-full ${
-          user.image.url ? 'bg-slate-700' : 'bg-transparent'
-        }`}
+      <Link
+        href={`/${user.type === 'admin' ? 'admin' : 'user'}/${
+          user.id
+        }/settings`}
       >
-        {user.image.url ? (
-          <Link href={`/user/${user.id}/settings`}>
+        <div
+          className={`relative flex items-center justify-center w-11 h-11 rounded-full ${
+            user.image.url ? 'bg-transparent' : 'bg-slate-700'
+          }`}
+        >
+          {user.image.url ? (
             <Image
               className=" object-cover rounded-full cursor-pointer hover:scale-105"
               alt="user image"
               src={user.image.url}
               fill
             />
-          </Link>
-        ) : (
-          <span className={'text-base text-white font-semibold'}>UN</span>
-        )}
-      </div>
+          ) : (
+            <span className={'text-base text-white font-semibold'}>UN</span>
+          )}
+        </div>
+      </Link>
     </header>
   )
 }

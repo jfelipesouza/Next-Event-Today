@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import { FormButton, FormCard, InputForm, Form } from '../../forms'
+import FormComponent from '../../forms'
 import Link from 'next/link'
 import { useAuthContext } from '@/services/context/AuthContext'
 
@@ -48,13 +48,16 @@ export const LoginCard: React.FC = () => {
   }
 
   return (
-    <FormCard
+    <FormComponent.FormCard
       subtitle={'É novo por aqui?'}
       link={'register'}
       title="Entre agora"
     >
-      <Form onSubmit={handleSubmit(handleSignIn)}>
-        <InputForm
+      <FormComponent.Form
+        className={'flex flex-col gap-4'}
+        onSubmit={handleSubmit(handleSignIn)}
+      >
+        <FormComponent.InputForm
           id="email"
           title="E-mail"
           placeholder={'Insira o seu e-mail'}
@@ -63,7 +66,7 @@ export const LoginCard: React.FC = () => {
           {...register('email')}
         />
 
-        <InputForm
+        <FormComponent.InputForm
           id="passord"
           title="Senha"
           placeholder={'Insira a sua senha'}
@@ -78,8 +81,8 @@ export const LoginCard: React.FC = () => {
         >
           Esqueci a senha
         </Link>
-        <FormButton content={'Enviar'} disabled={disabled} />
-      </Form>
-    </FormCard>
+        <FormComponent.FormButton content={'Enviar'} disabled={disabled} />
+      </FormComponent.Form>
+    </FormComponent.FormCard>
   )
 }

@@ -7,9 +7,5 @@ type FormProps = {
   HTMLFormElement
 >
 export const Form: React.FC<FormProps> = ({ children, ...rest }) => {
-  return (
-    <form className={'flex flex-col gap-2'} {...rest}>
-      {children}
-    </form>
-  )
+  return <form {...rest}>{children}</form>
 }

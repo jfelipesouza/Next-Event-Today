@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'react-toastify'
 
-import { FormButton, FormCard, InputForm, Form } from '../../forms'
+import FormComponent from '../../forms'
 import { api } from '@/services/api'
 
 const registerFormSchema = z
@@ -63,13 +63,16 @@ export const RegisterCard = () => {
   }
 
   return (
-    <FormCard
+    <FormComponent.FormCard
       /*  subtitle={'É organizador?'}
       link={'register/organizer'} */
       title="Crie a sua conta agora"
     >
-      <Form onSubmit={handleSubmit(handleCreateUser)}>
-        <InputForm
+      <FormComponent.Form
+        className={'flex flex-col gap-4'}
+        onSubmit={handleSubmit(handleCreateUser)}
+      >
+        <FormComponent.InputForm
           id="email"
           title="E-mail"
           placeholder={'digite seu melhor e-mail'}
@@ -78,7 +81,7 @@ export const RegisterCard = () => {
           {...register('email')}
         />
 
-        <InputForm
+        <FormComponent.InputForm
           id="passord"
           title="Senha"
           placeholder={'digite sua melhor senha'}
@@ -87,7 +90,7 @@ export const RegisterCard = () => {
           errorMessage={errors.password?.message}
           {...register('password')}
         />
-        <InputForm
+        <FormComponent.InputForm
           id="confirm"
           title="Confirma senha"
           placeholder={'insira a senha novamente'}
@@ -135,8 +138,8 @@ export const RegisterCard = () => {
             </span>
           </div>
         </div>
-        <FormButton content={'Criar conta'} disabled={disabled} />
-      </Form>
-    </FormCard>
+        <FormComponent.FormButton content={'Criar conta'} disabled={disabled} />
+      </FormComponent.Form>
+    </FormComponent.FormCard>
   )
 }

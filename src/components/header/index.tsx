@@ -1,7 +1,6 @@
 'use client'
 
 import NextLink from 'next/link'
-import { parseCookies } from 'nookies'
 
 import Image from 'next/image'
 import React from 'react'

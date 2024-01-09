@@ -3,7 +3,13 @@
 import React from 'react'
 import Link from 'next/link'
 
-import { ArrowLeft, Home, SearchCheck, Settings2 } from 'lucide-react'
+import {
+  ArrowLeft,
+  Home,
+  PenSquareIcon,
+  SearchCheck,
+  Settings2
+} from 'lucide-react'
 import Footer from './Footer'
 import { useAuthContext } from '@/services/context/AuthContext'
 import { useSidebarContext } from '@/services/context/SidebarContext'
@@ -26,12 +32,12 @@ const Sidebar: React.FC<SidebarProps> = ({ type = 'client' }) => {
         link: 'search',
         icon: <SearchCheck className="text-white" size={24} />,
         name: 'Eventos'
-      },
-      {
+      }
+      /* {
         link: 'settings',
         icon: <Settings2 className="text-white" size={24} />,
         name: 'Configurações'
-      }
+      } */
     ],
     admin: [
       {
@@ -40,15 +46,15 @@ const Sidebar: React.FC<SidebarProps> = ({ type = 'client' }) => {
         name: 'Home'
       },
       {
-        link: 'search',
-        icon: <SearchCheck className="text-white" size={24} />,
-        name: 'Eventos'
-      },
-      {
         link: 'settings',
         icon: <Settings2 className="text-white" size={24} />,
         name: 'Configurações'
       }
+      /* {
+        link: 'create',
+        icon: <PenSquareIcon className="text-white" size={24} />,
+        name: 'Eventos'
+      } */
     ]
   }
 

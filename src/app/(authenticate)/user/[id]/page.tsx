@@ -1,10 +1,14 @@
 import React from 'react'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 import { UserHeader } from '@/components/userHeader'
 import EventsCard from '@/components/cards/EventsCards'
+import { TOKEN } from '@/services/constants/tokens'
 
-const DynamicUserPage = async () => {
-  // await fetchEvents(user.id)
+const DynamicUserPage = async ({ params: { id } }: UserPage) => {
+  const events = fetchEvents(id)
+
   const map = [
     {
       id: 'as',
@@ -76,7 +80,8 @@ const baseUrl = process.env.NEXT_API_URL
 
 const fetchEvents = async (id: string): Promise<Events[] | null> => {
   const response = await fetch(`${baseUrl}/events/user?id=${id}`, {
-    cache: 'no-store'
+    cache: 'no-store',
+    method: 'GET'
   })
   const data = await response.json()
   console.log({ data })

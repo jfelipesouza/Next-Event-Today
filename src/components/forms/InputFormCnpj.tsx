@@ -4,23 +4,22 @@ import { EyeOff, Eye } from 'lucide-react'
 
 type InputFormProps = {
   error?: boolean
-  title: string
   errorMessage?: string
 } & React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 >
 
-const InputFormComponent: React.ForwardRefRenderFunction<
+const InputFormCnpjComponent: React.ForwardRefRenderFunction<
   HTMLInputElement,
   InputFormProps
-> = ({ error, type, title, id, errorMessage, ...rest }, ref) => {
+> = ({ error, type, id, errorMessage, ...rest }, ref) => {
   const [visible, setVisible] = useState<boolean>(false)
 
   return (
-    <div className="flex flex-col gap-2 ">
+    <div className="flex flex-col  ">
       <label className="text-base font-bold text-zinc-900 mb-2" htmlFor={id}>
-        {title}
+        Cnpj
       </label>
       <div className={'w-full relative'}>
         <input
@@ -68,4 +67,4 @@ const InputFormComponent: React.ForwardRefRenderFunction<
   )
 }
 
-export const InputForm = forwardRef(InputFormComponent)
+export const InputFormCnpj = forwardRef(InputFormCnpjComponent)

@@ -7,7 +7,7 @@ import { TOKEN } from '@/services/constants/tokens'
 import { SidebarProvider } from '@/services/context/SidebarContext'
 
 export const metadata: Metadata = {
-  title: 'Event Today - User',
+  title: 'All Games - User',
   description:
     'Veja as suas informações e edite-as quando quiser ou como precisar ',
   icons: { apple: '/icon.png', icon: '/icon.png' }
@@ -15,7 +15,6 @@ export const metadata: Metadata = {
 
 const ClientLayout = async ({ children }: { children: React.ReactNode }) => {
   await init()
-
   return (
     <SidebarProvider>
       <div className={'flex flex-1'}>
@@ -30,7 +29,14 @@ const init = async () => {
   'use server'
   const allCookies = cookies().getAll()
   if (allCookies.length > 0) {
-    if (!cookies().has(TOKEN.APP_USER)) {
+    if (cookies().has(TOKEN.APP_USER)) {
+      const token = JSON.parse(cookies().get(TOKEN.APP_USER)!.value) as UserData
+      if (token.type === 'admin') {
+        redirect(`/admin/${token.id}`)
+      } else {
+        redirect(`/user/${token.id}`)
+      }
+    } else {
       redirect('/auth/signin')
     }
   } else {

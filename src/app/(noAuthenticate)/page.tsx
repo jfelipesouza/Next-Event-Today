@@ -1,9 +1,11 @@
 import React from 'react'
 import { Search } from 'lucide-react'
+import EventsCard from '@/components/cards/EventsCards'
 
 const HomePage = async () => {
+  const events = await getEvents()
   return (
-    <main className=" w-screen min-h-screen flex flex-col items-center px-8 max-[500px]:px-4">
+    <main className=" w-screen min-h-screen flex flex-col items-center px-8 max-[500px]:px-4 overflow-hidden">
       <h2 className="font-black text-3xl max-[400px]:text-2xl text-center  mt-12 mb-12">
         Encontre o seu próximo evento
         <br /> e se divirta
@@ -33,8 +35,35 @@ const HomePage = async () => {
           <Search className="text-white" />
         </button>
       </div>
+      <div className={'flex flex-wrap gap-8 justify-start'}>
+        {events.map((e, index) => {
+          const date = new Date(e.eventInfo.date).toLocaleDateString()
+          return (
+            <EventsCard.Container id={e.id} key={e.id}>
+              <EventsCard.Banner></EventsCard.Banner>
+              <EventsCard.Content
+                subtitle={e.description}
+                descriptionItems={[e.authorName, date, e.eventInfo.address]}
+              />
+            </EventsCard.Container>
+          )
+        })}
+      </div>
     </main>
   )
 }
 
 export default HomePage
+
+const baseUrl = process.env.NEXT_API_URL
+
+const getEvents = async (): Promise<any[]> => {
+  const response = await fetch(`${baseUrl}/events/`, {
+    method: 'GET',
+    cache: 'no-cache'
+  })
+
+  const data = await response.json()
+  console.log(data)
+  return data.events
+}

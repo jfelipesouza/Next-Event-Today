@@ -2,5 +2,8 @@ import { FormCard } from './FormCard'
 import { InputForm } from './InputForm'
 import { FormButton } from './FormButton'
 import { Form } from './Form'
+import { InputFormCnpj } from './InputFormCnpj'
 
-export { InputForm, FormCard, FormButton, Form }
+const Forms = { InputForm, FormCard, FormButton, Form, InputFormCnpj }
+
+export default Forms

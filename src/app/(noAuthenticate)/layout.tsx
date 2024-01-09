@@ -27,7 +27,7 @@ const init = async () => {
     if (userData) {
       const user = JSON.parse(userData)
       if (user) {
-        redirect(`/user/${user.id}`)
+        redirect(`/user`)
       }
     }
   }
