@@ -58,12 +58,16 @@ export default HomePage
 const baseUrl = process.env.NEXT_API_URL
 
 const getEvents = async (): Promise<any[]> => {
-  const response = await fetch(`${baseUrl}/events/`, {
-    method: 'GET',
-    cache: 'no-cache'
-  })
+  try {
+    const response = await fetch(`${baseUrl}/events/`, {
+      method: 'GET',
+      cache: 'no-cache'
+    })
 
-  const data = await response.json()
-  console.log(data)
-  return data.events
+    const data = await response.json()
+    return data.events
+  } catch (error) {
+    console.log(error)
+    return []
+  }
 }
