@@ -35,6 +35,10 @@ module.exports = {
           300: '#d65651',
           400: '#c23c3b',
           500: '#ad2226'
+        },
+        background: {
+          day: '#fff',
+          night: '#333'
         }
       }
     }
